@@ -187,6 +187,9 @@ export class Text extends Shape<TextConfig> {
       letterSpacing = this.letterSpacing(),
       fill = this.fill(),
       textDecoration = this.textDecoration(),
+      textDecorationThickness = this.textDecorationThickness(),
+      textDecorationColor = this.textDecorationColor(),
+      textUnderlineOffset = this.textUnderlineOffset(),
       shouldUnderline = textDecoration.indexOf('underline') !== -1,
       shouldLineThrough = textDecoration.indexOf('line-through') !== -1,
       n;
@@ -216,6 +219,7 @@ export class Text extends Shape<TextConfig> {
     for (n = 0; n < textArrLen; n++) {
       var lineTranslateX = 0;
       var lineTranslateY = 0;
+      var underlineOffsetY = translateY + lineTranslateY + Math.round(fontSize / 2) + textUnderlineOffset;
       var obj = textArr[n],
         text = obj.text,
         width = obj.width,
@@ -238,7 +242,7 @@ export class Text extends Shape<TextConfig> {
 
         context.moveTo(
           lineTranslateX,
-          translateY + lineTranslateY + Math.round(fontSize / 2)
+          underlineOffsetY
         );
         spacesNumber = text.split(' ').length - 1;
         oneWord = spacesNumber === 0;
@@ -248,13 +252,13 @@ export class Text extends Shape<TextConfig> {
             : width;
         context.lineTo(
           lineTranslateX + Math.round(lineWidth),
-          translateY + lineTranslateY + Math.round(fontSize / 2)
+          underlineOffsetY
         );
 
         // I have no idea what is real ratio
         // just /15 looks good enough
-        context.lineWidth = fontSize / 15;
-        context.strokeStyle = fill;
+        context.lineWidth = textDecorationThickness ?? fontSize / 15;
+        context.strokeStyle = textDecorationColor ?? fill;
         context.stroke();
         context.restore();
       }
@@ -582,6 +586,9 @@ export class Text extends Shape<TextConfig> {
   padding: GetSet<number, this>;
   lineHeight: GetSet<number, this>;
   textDecoration: GetSet<string, this>;
+  textDecorationThickness: GetSet<string, this>;
+  textDecorationColor: GetSet<string, this>;
+  textUnderlineOffset: GetSet<string, this>;
   text: GetSet<string, this>;
   wrap: GetSet<string, this>;
   ellipsis: GetSet<boolean, this>;
@@ -850,5 +857,8 @@ Factory.addGetterSetter(Text, 'text', '', getStringValidator());
  */
 
 Factory.addGetterSetter(Text, 'textDecoration', '');
+Factory.addGetterSetter(Text, 'textUnderlineOffset', 0);
+Factory.addGetterSetter(Text, 'textDecorationColor');
+Factory.addGetterSetter(Text, 'textDecorationThickness');
 
 Collection.mapMethods(Text);
