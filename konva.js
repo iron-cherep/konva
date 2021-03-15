@@ -8,7 +8,7 @@
    * Konva JavaScript Framework v7.2.5
    * http://konvajs.org/
    * Licensed under the MIT
-   * Date: Wed Mar 03 2021
+   * Date: Mon Mar 15 2021
    *
    * Original work Copyright (C) 2011 - 2013 by Eric Rowell (KineticJS)
    * Modified work Copyright (C) 2014 - present by Anton Lavrenov (Konva)
@@ -1521,6 +1521,8 @@
   };
 
   function __extends(d, b) {
+      if (typeof b !== "function" && b !== null)
+          throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
       extendStatics(d, b);
       function __() { this.constructor = d; }
       d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -1537,12 +1539,10 @@
       return __assign.apply(this, arguments);
   };
 
-  function __spreadArrays() {
-      for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-      for (var r = Array(s), k = 0, i = 0; i < il; i++)
-          for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-              r[k] = a[j];
-      return r;
+  function __spreadArray(to, from) {
+      for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
+          to[j] = from[i];
+      return to;
   }
 
   var COMMA = ',', OPEN_PAREN = '(', CLOSE_PAREN = ')', OPEN_PAREN_BRACKET = '([', CLOSE_BRACKET_PAREN = '])', SEMICOLON = ';', DOUBLE_PAREN = '()', 
@@ -2636,7 +2636,7 @@
       }
   };
   // CONSTANTS
-  var ABSOLUTE_OPACITY = 'absoluteOpacity', ALL_LISTENERS = 'allEventListeners', ABSOLUTE_TRANSFORM = 'absoluteTransform', ABSOLUTE_SCALE = 'absoluteScale', CANVAS = 'canvas', CHANGE = 'Change', CHILDREN = 'children', KONVA = 'konva', LISTENING = 'listening', MOUSEENTER = 'mouseenter', MOUSELEAVE = 'mouseleave', NAME = 'name', SET$1 = 'set', SHAPE = 'Shape', SPACE = ' ', STAGE = 'stage', TRANSFORM = 'transform', UPPER_STAGE = 'Stage', VISIBLE = 'visible', TRANSFORM_CHANGE_STR = [
+  var ABSOLUTE_OPACITY = 'absoluteOpacity', ALL_LISTENERS = 'allEventListeners', ABSOLUTE_TRANSFORM = 'absoluteTransform', ABSOLUTE_SCALE = 'absoluteScale', CANVAS = 'canvas', CHANGE = 'Change', CHILDREN = 'children', KONVA = 'konva', LISTENING = 'listening', MOUSEENTER = 'mouseenter', MOUSELEAVE = 'mouseleave', NAME = 'name', SET = 'set', SHAPE = 'Shape', SPACE = ' ', STAGE = 'stage', TRANSFORM = 'transform', UPPER_STAGE = 'Stage', VISIBLE = 'visible', TRANSFORM_CHANGE_STR = [
       'xChange.konva',
       'yChange.konva',
       'scaleXChange.konva',
@@ -3333,7 +3333,7 @@
                   if (key === CHILDREN) {
                       continue;
                   }
-                  method = SET$1 + Util._capitalize(key);
+                  method = SET + Util._capitalize(key);
                   // use setter if available
                   if (Util._isFunction(_this[method])) {
                       _this[method](config[key]);
@@ -4464,7 +4464,7 @@
        * node.setAttr('x', 5);
        */
       Node.prototype.setAttr = function (attr, val) {
-          var func = this[SET$1 + Util._capitalize(attr)];
+          var func = this[SET + Util._capitalize(attr)];
           if (Util._isFunction(func)) {
               func.call(this, val);
           }
@@ -5922,14 +5922,14 @@
   }
 
   // CONSTANTS
-  var STAGE$1 = 'Stage', STRING = 'string', PX = 'px', MOUSEOUT = 'mouseout', MOUSELEAVE$1 = 'mouseleave', MOUSEOVER = 'mouseover', MOUSEENTER$1 = 'mouseenter', MOUSEMOVE = 'mousemove', MOUSEDOWN = 'mousedown', MOUSEUP = 'mouseup', 
+  var STAGE = 'Stage', STRING = 'string', PX = 'px', MOUSEOUT = 'mouseout', MOUSELEAVE = 'mouseleave', MOUSEOVER = 'mouseover', MOUSEENTER = 'mouseenter', MOUSEMOVE = 'mousemove', MOUSEDOWN = 'mousedown', MOUSEUP = 'mouseup', 
   // TODO: add them into "on" method docs and into site docs
-  POINTERMOVE = 'pointermove', POINTERDOWN = 'pointerdown', POINTERUP = 'pointerup', POINTERCANCEL = 'pointercancel', LOSTPOINTERCAPTURE = 'lostpointercapture', CONTEXTMENU = 'contextmenu', CLICK = 'click', DBL_CLICK = 'dblclick', TOUCHSTART = 'touchstart', TOUCHEND = 'touchend', TAP = 'tap', DBL_TAP = 'dbltap', TOUCHMOVE = 'touchmove', WHEEL = 'wheel', CONTENT_MOUSEOUT = 'contentMouseout', CONTENT_MOUSEOVER = 'contentMouseover', CONTENT_MOUSEMOVE = 'contentMousemove', CONTENT_MOUSEDOWN = 'contentMousedown', CONTENT_MOUSEUP = 'contentMouseup', CONTENT_CONTEXTMENU = 'contentContextmenu', CONTENT_CLICK = 'contentClick', CONTENT_DBL_CLICK = 'contentDblclick', CONTENT_TOUCHSTART = 'contentTouchstart', CONTENT_TOUCHEND = 'contentTouchend', CONTENT_DBL_TAP = 'contentDbltap', CONTENT_TAP = 'contentTap', CONTENT_TOUCHMOVE = 'contentTouchmove', CONTENT_WHEEL = 'contentWheel', RELATIVE = 'relative', KONVA_CONTENT = 'konvajs-content', UNDERSCORE = '_', CONTAINER = 'container', MAX_LAYERS_NUMBER = 5, EMPTY_STRING$1 = '', EVENTS = [
-      MOUSEENTER$1,
+  POINTERMOVE = 'pointermove', POINTERDOWN = 'pointerdown', POINTERUP = 'pointerup', POINTERCANCEL = 'pointercancel', LOSTPOINTERCAPTURE = 'lostpointercapture', CONTEXTMENU = 'contextmenu', CLICK = 'click', DBL_CLICK = 'dblclick', TOUCHSTART = 'touchstart', TOUCHEND = 'touchend', TAP = 'tap', DBL_TAP = 'dbltap', TOUCHMOVE = 'touchmove', WHEEL = 'wheel', CONTENT_MOUSEOUT = 'contentMouseout', CONTENT_MOUSEOVER = 'contentMouseover', CONTENT_MOUSEMOVE = 'contentMousemove', CONTENT_MOUSEDOWN = 'contentMousedown', CONTENT_MOUSEUP = 'contentMouseup', CONTENT_CONTEXTMENU = 'contentContextmenu', CONTENT_CLICK = 'contentClick', CONTENT_DBL_CLICK = 'contentDblclick', CONTENT_TOUCHSTART = 'contentTouchstart', CONTENT_TOUCHEND = 'contentTouchend', CONTENT_DBL_TAP = 'contentDbltap', CONTENT_TAP = 'contentTap', CONTENT_TOUCHMOVE = 'contentTouchmove', CONTENT_WHEEL = 'contentWheel', RELATIVE = 'relative', KONVA_CONTENT = 'konvajs-content', UNDERSCORE = '_', CONTAINER = 'container', MAX_LAYERS_NUMBER = 5, EMPTY_STRING = '', EVENTS = [
+      MOUSEENTER,
       MOUSEDOWN,
       MOUSEMOVE,
       MOUSEUP,
-      MOUSELEAVE$1,
+      MOUSELEAVE,
       TOUCHSTART,
       TOUCHMOVE,
       TOUCHEND,
@@ -6249,7 +6249,7 @@
       };
       Stage.prototype._mouseenter = function (evt) {
           this.setPointersPositions(evt);
-          this._fire(MOUSEENTER$1, { evt: evt, target: this, currentTarget: this });
+          this._fire(MOUSEENTER, { evt: evt, target: this, currentTarget: this });
       };
       Stage.prototype._mouseover = function (evt) {
           this.setPointersPositions(evt);
@@ -6263,12 +6263,12 @@
           var eventsEnabled = !DD.isDragging || Konva.hitOnDragEnabled;
           if (targetShape && eventsEnabled) {
               targetShape._fireAndBubble(MOUSEOUT, { evt: evt });
-              targetShape._fireAndBubble(MOUSELEAVE$1, { evt: evt });
-              this._fire(MOUSELEAVE$1, { evt: evt, target: this, currentTarget: this });
+              targetShape._fireAndBubble(MOUSELEAVE, { evt: evt });
+              this._fire(MOUSELEAVE, { evt: evt, target: this, currentTarget: this });
               this.targetShape = null;
           }
           else if (eventsEnabled) {
-              this._fire(MOUSELEAVE$1, {
+              this._fire(MOUSELEAVE, {
                   evt: evt,
                   target: this,
                   currentTarget: this,
@@ -6301,10 +6301,10 @@
                   if (eventsEnabled && differentTarget) {
                       if (targetShape) {
                           targetShape._fireAndBubble(MOUSEOUT, { evt: evt, pointerId: pointerId }, shape);
-                          targetShape._fireAndBubble(MOUSELEAVE$1, { evt: evt, pointerId: pointerId }, shape);
+                          targetShape._fireAndBubble(MOUSELEAVE, { evt: evt, pointerId: pointerId }, shape);
                       }
                       shape._fireAndBubble(MOUSEOVER, { evt: evt, pointerId: pointerId }, targetShape);
-                      shape._fireAndBubble(MOUSEENTER$1, { evt: evt, pointerId: pointerId }, targetShape);
+                      shape._fireAndBubble(MOUSEENTER, { evt: evt, pointerId: pointerId }, targetShape);
                       shape._fireAndBubble(MOUSEMOVE, { evt: evt, pointerId: pointerId });
                       this.targetShape = shape;
                   }
@@ -6319,7 +6319,7 @@
                    */
                   if (targetShape && eventsEnabled) {
                       targetShape._fireAndBubble(MOUSEOUT, { evt: evt, pointerId: pointerId });
-                      targetShape._fireAndBubble(MOUSELEAVE$1, { evt: evt, pointerId: pointerId });
+                      targetShape._fireAndBubble(MOUSELEAVE, { evt: evt, pointerId: pointerId });
                       this._fire(MOUSEOVER, {
                           evt: evt,
                           target: this,
@@ -6783,7 +6783,7 @@
               throw 'Stage has no container. A container is required.';
           }
           // clear content inside container
-          container.innerHTML = EMPTY_STRING$1;
+          container.innerHTML = EMPTY_STRING;
           // content
           this.content = document.createElement('div');
           this.content.style.position = RELATIVE;
@@ -6815,7 +6815,7 @@
       };
       return Stage;
   }(Container));
-  Stage.prototype.nodeType = STAGE$1;
+  Stage.prototype.nodeType = STAGE;
   _registerNode(Stage);
   /**
    * get/set container DOM element
@@ -7047,7 +7047,7 @@
                       c: 0,
                       d: this.fillPatternScaleY(),
                       e: 0,
-                      f: 0,
+                      f: 0, // Vertical translation (moving).
                   });
               }
               return pattern;
@@ -8455,7 +8455,7 @@
   Collection.mapMethods(Shape);
 
   // constants
-  var HASH$1 = '#', BEFORE_DRAW = 'beforeDraw', DRAW = 'draw', 
+  var HASH = '#', BEFORE_DRAW = 'beforeDraw', DRAW = 'draw', 
   /*
    * 2 - 3 - 4
    * |       |
@@ -8468,7 +8468,7 @@
       { x: -1, y: -1 },
       { x: 1, y: -1 },
       { x: 1, y: 1 },
-      { x: -1, y: 1 },
+      { x: -1, y: 1 }, // 8
   ], INTERSECTION_OFFSETS_LEN = INTERSECTION_OFFSETS.length;
   /**
    * Layer constructor.  Layers are tied to their own canvas element and are used
@@ -8808,7 +8808,7 @@
           // fully opaque pixel
           if (p3 === 255) {
               var colorKey = Util._rgbToHex(p[0], p[1], p[2]);
-              var shape = shapes[HASH$1 + colorKey];
+              var shape = shapes[HASH + colorKey];
               if (shape) {
                   return {
                       shape: shape,
@@ -9267,7 +9267,7 @@
       easing: 1,
       onFinish: 1,
       yoyo: 1,
-  }, PAUSED = 1, PLAYING = 2, REVERSING = 3, idCounter$1 = 0, colorAttrs = ['fill', 'stroke', 'shadowColor'];
+  }, PAUSED = 1, PLAYING = 2, REVERSING = 3, idCounter = 0, colorAttrs = ['fill', 'stroke', 'shadowColor'];
   var TweenEngine = /** @class */ (function () {
       function TweenEngine(prop, propFunc, func, begin, finish, duration, yoyo) {
           this.prop = prop;
@@ -9423,7 +9423,7 @@
               duration = config.duration;
           }
           this.node = node;
-          this._id = idCounter$1++;
+          this._id = idCounter++;
           var layers = node.getLayer() ||
               (node instanceof Konva['Stage'] ? node.getLayers() : null);
           if (!layers) {
@@ -9965,7 +9965,7 @@
   };
 
   // what is core parts of Konva?
-  var Konva$1 = Util._assign(Konva, {
+  var Konva = Util._assign(Konva, {
       Collection: Collection,
       Util: Util,
       Transform: Transform,
@@ -10372,10 +10372,10 @@
               };
           }
           if (this.tension() !== 0) {
-              points = __spreadArrays([
+              points = __spreadArray(__spreadArray([
                   points[0],
                   points[1]
-              ], this._getTensionPoints(), [
+              ], this._getTensionPoints()), [
                   points[points.length - 2],
                   points[points.length - 1]
               ]);
@@ -13460,7 +13460,7 @@
   // constants
   var AUTO = 'auto', 
   //CANVAS = 'canvas',
-  CENTER = 'center', JUSTIFY = 'justify', CHANGE_KONVA$1 = 'Change.konva', CONTEXT_2D = '2d', DASH = '-', LEFT$1 = 'left', TEXT = 'text', TEXT_UPPER = 'Text', TOP = 'top', BOTTOM = 'bottom', MIDDLE = 'middle', NORMAL = 'normal', PX_SPACE = 'px ', SPACE$1 = ' ', RIGHT$1 = 'right', WORD = 'word', CHAR = 'char', NONE$1 = 'none', ELLIPSIS = '…', ATTR_CHANGE_LIST$1 = [
+  CENTER = 'center', JUSTIFY = 'justify', CHANGE_KONVA = 'Change.konva', CONTEXT_2D = '2d', DASH = '-', LEFT = 'left', TEXT = 'text', TEXT_UPPER = 'Text', TOP = 'top', BOTTOM = 'bottom', MIDDLE = 'middle', NORMAL = 'normal', PX_SPACE = 'px ', SPACE = ' ', RIGHT = 'right', WORD = 'word', CHAR = 'char', NONE = 'none', ELLIPSIS = '…', ATTR_CHANGE_LIST = [
       'fontFamily',
       'fontSize',
       'fontStyle',
@@ -13477,7 +13477,7 @@
       'letterSpacing',
   ], 
   // cached variables
-  attrChangeListLen$1 = ATTR_CHANGE_LIST$1.length;
+  attrChangeListLen = ATTR_CHANGE_LIST.length;
   function normalizeFontFamily(fontFamily) {
       return fontFamily
           .split(',')
@@ -13492,18 +13492,18 @@
       })
           .join(', ');
   }
-  var dummyContext$1;
-  function getDummyContext$1() {
-      if (dummyContext$1) {
-          return dummyContext$1;
+  var dummyContext;
+  function getDummyContext() {
+      if (dummyContext) {
+          return dummyContext;
       }
-      dummyContext$1 = Util.createCanvasElement().getContext(CONTEXT_2D);
-      return dummyContext$1;
+      dummyContext = Util.createCanvasElement().getContext(CONTEXT_2D);
+      return dummyContext;
   }
-  function _fillFunc$1(context) {
+  function _fillFunc(context) {
       context.fillText(this._partialText, this._partialTextX, this._partialTextY);
   }
-  function _strokeFunc$1(context) {
+  function _strokeFunc(context) {
       context.strokeText(this._partialText, this._partialTextX, this._partialTextY);
   }
   function checkDefaultFill(config) {
@@ -13625,8 +13625,8 @@
           _this._partialTextX = 0;
           _this._partialTextY = 0;
           // update text data for certain attr changes
-          for (var n = 0; n < attrChangeListLen$1; n++) {
-              _this.on(ATTR_CHANGE_LIST$1[n] + CHANGE_KONVA$1, _this._setTextData);
+          for (var n = 0; n < attrChangeListLen; n++) {
+              _this.on(ATTR_CHANGE_LIST[n] + CHANGE_KONVA, _this._setTextData);
           }
           _this._setTextData();
           return _this;
@@ -13636,14 +13636,14 @@
           if (!this.text()) {
               return;
           }
-          var padding = this.padding(), fontSize = this.fontSize(), lineHeightPx = this.lineHeight() * fontSize, verticalAlign = this.verticalAlign(), alignY = 0, align = this.align(), totalWidth = this.getWidth(), letterSpacing = this.letterSpacing(), fill = this.fill(), textDecoration = this.textDecoration(), shouldUnderline = textDecoration.indexOf('underline') !== -1, shouldLineThrough = textDecoration.indexOf('line-through') !== -1, n;
+          var padding = this.padding(), fontSize = this.fontSize(), lineHeightPx = this.lineHeight() * fontSize, verticalAlign = this.verticalAlign(), alignY = 0, align = this.align(), totalWidth = this.getWidth(), letterSpacing = this.letterSpacing(), fill = this.fill(), textDecoration = this.textDecoration(), textDecorationThickness = this.textDecorationThickness(), textDecorationColor = this.textDecorationColor(), textUnderlineOffset = this.textUnderlineOffset(), shouldUnderline = textDecoration.indexOf('underline') !== -1, shouldLineThrough = textDecoration.indexOf('line-through') !== -1, n;
           var translateY = 0;
           var translateY = lineHeightPx / 2;
           var lineTranslateX = 0;
           var lineTranslateY = 0;
           context.setAttr('font', this._getContextFont());
           context.setAttr('textBaseline', MIDDLE);
-          context.setAttr('textAlign', LEFT$1);
+          context.setAttr('textAlign', LEFT);
           // handle vertical alignment
           if (verticalAlign === MIDDLE) {
               alignY = (this.getHeight() - textArrLen * lineHeightPx - padding * 2) / 2;
@@ -13656,10 +13656,11 @@
           for (n = 0; n < textArrLen; n++) {
               var lineTranslateX = 0;
               var lineTranslateY = 0;
+              var underlineOffsetY = translateY + lineTranslateY + Math.round(fontSize / 2) + textUnderlineOffset;
               var obj = textArr[n], text = obj.text, width = obj.width, lastLine = n !== textArrLen - 1, spacesNumber, oneWord, lineWidth;
               // horizontal alignment
               context.save();
-              if (align === RIGHT$1) {
+              if (align === RIGHT) {
                   lineTranslateX += totalWidth - width - padding * 2;
               }
               else if (align === CENTER) {
@@ -13668,18 +13669,18 @@
               if (shouldUnderline) {
                   context.save();
                   context.beginPath();
-                  context.moveTo(lineTranslateX, translateY + lineTranslateY + Math.round(fontSize / 2));
+                  context.moveTo(lineTranslateX, underlineOffsetY);
                   spacesNumber = text.split(' ').length - 1;
                   oneWord = spacesNumber === 0;
                   lineWidth =
                       align === JUSTIFY && lastLine && !oneWord
                           ? totalWidth - padding * 2
                           : width;
-                  context.lineTo(lineTranslateX + Math.round(lineWidth), translateY + lineTranslateY + Math.round(fontSize / 2));
+                  context.lineTo(lineTranslateX + Math.round(lineWidth), underlineOffsetY);
                   // I have no idea what is real ratio
                   // just /15 looks good enough
-                  context.lineWidth = fontSize / 15;
-                  context.strokeStyle = fill;
+                  context.lineWidth = textDecorationThickness !== null && textDecorationThickness !== void 0 ? textDecorationThickness : fontSize / 15;
+                  context.strokeStyle = textDecorationColor !== null && textDecorationColor !== void 0 ? textDecorationColor : fill;
                   context.stroke();
                   context.restore();
               }
@@ -13781,7 +13782,7 @@
        * @returns {Object} { width , height} of measured text
        */
       Text.prototype.measureSize = function (text) {
-          var _context = getDummyContext$1(), fontSize = this.fontSize(), metrics;
+          var _context = getDummyContext(), fontSize = this.fontSize(), metrics;
           _context.save();
           _context.font = this._getContextFont();
           metrics = _context.measureText(text);
@@ -13798,15 +13799,15 @@
           // fix for: https://github.com/konvajs/konva/issues/94
           if (Konva.UA.isIE) {
               return (this.fontStyle() +
-                  SPACE$1 +
+                  SPACE +
                   this.fontSize() +
                   PX_SPACE +
                   this.fontFamily());
           }
           return (this.fontStyle() +
-              SPACE$1 +
+              SPACE +
               this.fontVariant() +
-              SPACE$1 +
+              SPACE +
               (this.fontSize() + PX_SPACE) +
               // wrap font family into " so font families with spaces works ok
               normalizeFontFamily(this.fontFamily()));
@@ -13821,15 +13822,15 @@
       Text.prototype._getTextWidth = function (text) {
           var letterSpacing = this.letterSpacing();
           var length = text.length;
-          return (getDummyContext$1().measureText(text).width +
+          return (getDummyContext().measureText(text).width +
               (length ? letterSpacing * (length - 1) : 0));
       };
       Text.prototype._setTextData = function () {
           var lines = this.text().split('\n'), fontSize = +this.fontSize(), textWidth = 0, lineHeightPx = this.lineHeight() * fontSize, width = this.attrs.width, height = this.attrs.height, fixedWidth = width !== AUTO && width !== undefined, fixedHeight = height !== AUTO && height !== undefined, padding = this.padding(), maxWidth = width - padding * 2, maxHeightPx = height - padding * 2, currentHeightPx = 0, wrap = this.wrap(), 
           // align = this.align(),
-          shouldWrap = wrap !== NONE$1, wrapAtWord = wrap !== CHAR && shouldWrap, shouldAddEllipsis = this.ellipsis();
+          shouldWrap = wrap !== NONE, wrapAtWord = wrap !== CHAR && shouldWrap, shouldAddEllipsis = this.ellipsis();
           this.textArr = [];
-          getDummyContext$1().font = this._getContextFont();
+          getDummyContext().font = this._getContextFont();
           var additionalWidth = shouldAddEllipsis ? this._getTextWidth(ELLIPSIS) : 0;
           for (var i = 0, max = lines.length; i < max; ++i) {
               var line = lines[i];
@@ -13867,13 +13868,13 @@
                               // try to find a space or dash where wrapping could be done
                               var wrapIndex;
                               var nextChar = line[match.length];
-                              var nextIsSpaceOrDash = nextChar === SPACE$1 || nextChar === DASH;
+                              var nextIsSpaceOrDash = nextChar === SPACE || nextChar === DASH;
                               if (nextIsSpaceOrDash && matchWidth <= maxWidth) {
                                   wrapIndex = match.length;
                               }
                               else {
                                   wrapIndex =
-                                      Math.max(match.lastIndexOf(SPACE$1), match.lastIndexOf(DASH)) +
+                                      Math.max(match.lastIndexOf(SPACE), match.lastIndexOf(DASH)) +
                                           1;
                               }
                               if (wrapIndex > 0) {
@@ -13953,8 +13954,8 @@
       };
       return Text;
   }(Shape));
-  Text.prototype._fillFunc = _fillFunc$1;
-  Text.prototype._strokeFunc = _strokeFunc$1;
+  Text.prototype._fillFunc = _fillFunc;
+  Text.prototype._strokeFunc = _strokeFunc;
   Text.prototype.className = TEXT_UPPER;
   Text.prototype._attrsAffectingSize = [
       'text',
@@ -14087,7 +14088,7 @@
    * // align text to right
    * text.align('right');
    */
-  Factory.addGetterSetter(Text, 'align', LEFT$1);
+  Factory.addGetterSetter(Text, 'align', LEFT);
   /**
    * get/set vertical align of text.  Can be 'top', 'middle', 'bottom'.
    * @name Konva.Text#verticalAlign
@@ -14189,13 +14190,16 @@
    * text.textDecoration('underline line-through');
    */
   Factory.addGetterSetter(Text, 'textDecoration', '');
+  Factory.addGetterSetter(Text, 'textUnderlineOffset', 0);
+  Factory.addGetterSetter(Text, 'textDecorationColor');
+  Factory.addGetterSetter(Text, 'textDecorationThickness');
   Collection.mapMethods(Text);
 
-  var EMPTY_STRING$2 = '', NORMAL$1 = 'normal';
-  function _fillFunc$2(context) {
+  var EMPTY_STRING = '', NORMAL = 'normal';
+  function _fillFunc(context) {
       context.fillText(this.partialText, 0, 0);
   }
-  function _strokeFunc$2(context) {
+  function _strokeFunc(context) {
       context.strokeText(this.partialText, 0, 0);
   }
   /**
@@ -14667,10 +14671,10 @@
       };
       return TextPath;
   }(Shape));
-  TextPath.prototype._fillFunc = _fillFunc$2;
-  TextPath.prototype._strokeFunc = _strokeFunc$2;
-  TextPath.prototype._fillFuncHit = _fillFunc$2;
-  TextPath.prototype._strokeFuncHit = _strokeFunc$2;
+  TextPath.prototype._fillFunc = _fillFunc;
+  TextPath.prototype._strokeFunc = _strokeFunc;
+  TextPath.prototype._fillFuncHit = _fillFunc;
+  TextPath.prototype._strokeFuncHit = _strokeFunc;
   TextPath.prototype.className = 'TextPath';
   TextPath.prototype._attrsAffectingSize = ['text', 'fontSize', 'data'];
   _registerNode(TextPath);
@@ -14732,7 +14736,7 @@
    * // set font style
    * shape.fontStyle('bold');
    */
-  Factory.addGetterSetter(TextPath, 'fontStyle', NORMAL$1);
+  Factory.addGetterSetter(TextPath, 'fontStyle', NORMAL);
   /**
    * get/set horizontal align of text.  Can be 'left', 'center', 'right' or 'justify'
    * @name Konva.TextPath#align
@@ -14791,7 +14795,7 @@
    * // set font variant
    * shape.fontVariant('small-caps');
    */
-  Factory.addGetterSetter(TextPath, 'fontVariant', NORMAL$1);
+  Factory.addGetterSetter(TextPath, 'fontVariant', NORMAL);
   /**
    * get/set text
    * @name Konva.TextPath#getText
@@ -14805,7 +14809,7 @@
    * // set text
    * text.text('Hello world!');
    */
-  Factory.addGetterSetter(TextPath, 'text', EMPTY_STRING$2);
+  Factory.addGetterSetter(TextPath, 'text', EMPTY_STRING);
   /**
    * get/set text decoration of a text.  Can be '' or 'underline'.
    * @name Konva.TextPath#textDecoration
@@ -14839,7 +14843,7 @@
   Collection.mapMethods(TextPath);
 
   var EVENTS_NAME = 'tr-konva';
-  var ATTR_CHANGE_LIST$2 = [
+  var ATTR_CHANGE_LIST = [
       'resizeEnabledChange',
       'rotateAnchorOffsetChange',
       'rotateEnabledChange',
@@ -14858,7 +14862,7 @@
       .map(function (e) { return e + ("." + EVENTS_NAME); })
       .join(' ');
   var NODES_RECT = 'nodesRect';
-  var TRANSFORM_CHANGE_STR$1 = [
+  var TRANSFORM_CHANGE_STR = [
       'widthChange',
       'heightChange',
       'scaleXChange',
@@ -15024,7 +15028,7 @@
           _this._handleMouseUp = _this._handleMouseUp.bind(_this);
           _this.update = _this.update.bind(_this);
           // update transformer data for certain attr changes
-          _this.on(ATTR_CHANGE_LIST$2, _this.update);
+          _this.on(ATTR_CHANGE_LIST, _this.update);
           if (_this.getNode()) {
               _this.update();
           }
@@ -15077,7 +15081,7 @@
                   }
               };
               node.on(additionalEvents, onChange);
-              node.on(TRANSFORM_CHANGE_STR$1, onChange);
+              node.on(TRANSFORM_CHANGE_STR, onChange);
               node.on("_clearTransformCache." + EVENTS_NAME, onChange);
               node.on("xChange." + EVENTS_NAME + " yChange." + EVENTS_NAME, onChange);
               _this._proxyDrag(node);
@@ -18404,7 +18408,7 @@
    */
 
   // we need to import core of the Konva and then extend it with all additional objects
-  var Konva$2 = Konva$1.Util._assign(Konva$1, {
+  var Konva = Konva.Util._assign(Konva, {
       Arc: Arc,
       Arrow: Arrow,
       Circle: Circle,
@@ -18452,6 +18456,6 @@
 
   // main entry for umd build for rollup
 
-  return Konva$2;
+  return Konva;
 
 })));
